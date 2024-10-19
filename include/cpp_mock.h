@@ -628,14 +628,14 @@ namespace cpp_mock
 // detect the difference between 'type a' and 'a'
 #define CAT(a, b) a ## b
 #define GET_SECOND_ARG(a, b, ...) b
-#define DEFINE_EXISTS(...) EXPAND_MACRO(GET_SECOND_ARG(__VA_ARGS__, TRUE))
+#define DEFINE_EXISTS(...) EXPAND_MACRO(GET_SECOND_ARG(__VA_ARGS__, IS_TRUE))
 #define IS_TYPE_MISSING(x) DEFINE_EXISTS(CAT(TOKEN_IS_EMPTY_, x))
-#define TOKEN_IS_EMPTY_a ignored, FALSE
+#define TOKEN_IS_EMPTY_a ignored, IS_FALSE
 #define GET_METHOD(method, suffix) CAT(method, suffix)
 #define NOOP(...)
-#define MOCK_METHOD_IS_SINGLE_FALSE(Ret, Name, Args, Specs) MOCK_METHOD_IMPL(Ret, Name, Args, Specs, NOOP, NOOP)
-#define MOCK_METHOD_IS_SINGLE_TRUE(Ret, Name, Args, Specs) MOCK_METHOD_IMPL(Ret, Name, Args, Specs, NAME_ARGS1, TRANSFORM1, a)
-#define HANDLE_EMPTY_TYPE(...) GET_METHOD(MOCK_METHOD_IS_SINGLE_, IS_TYPE_MISSING(__VA_ARGS__ a))
+#define MOCK_METHOD_SINGLE_IS_FALSE(Ret, Name, Args, Specs) MOCK_METHOD_IMPL(Ret, Name, Args, Specs, NOOP, NOOP)
+#define MOCK_METHOD_SINGLE_IS_TRUE(Ret, Name, Args, Specs) MOCK_METHOD_IMPL(Ret, Name, Args, Specs, NAME_ARGS1, TRANSFORM1, a)
+#define HANDLE_EMPTY_TYPE(...) GET_METHOD(MOCK_METHOD_SINGLE_, IS_TYPE_MISSING(__VA_ARGS__ a))
 
 #define MOCK_METHOD_1(Ret, Name, Args, Specs) HANDLE_EMPTY_TYPE Args (Ret, Name, Args, Specs)
 #define MOCK_METHOD_2(Ret, Name, Args, Specs) MOCK_METHOD_IMPL(Ret, Name, Args, Specs, NAME_ARGS2, TRANSFORM2, b, a)
